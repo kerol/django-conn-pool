@@ -1,0 +1,18 @@
+# Common
+.DS_Store
+*.log
+*.bak
+
+# IDE
+.idea
+.vscode
+*.iml
+
+# Node.js
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+env/
+venv/
