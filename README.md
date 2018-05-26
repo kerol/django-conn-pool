@@ -1,4 +1,4 @@
-### Django-pool
+### Django-conn-pool
 MySQL Connection Pooling with Django(>=2.0.5) and SQLAlchemy(>=1.2.7).
 
 ### Why
@@ -90,4 +90,4 @@ siege -r 2 -c 1000 -d 0 http://xxx  # siege --help
 
 You can compare the MySQL process list count to the before, and it should work.
 
-Btw, you should get a `SQLAlchemy.exc.Timeout` exception if it does not get a connection during the request.
+Btw, you should get a `sqlalchemy.exc.TimeoutError:` exception if it does not get a connection during the request.
