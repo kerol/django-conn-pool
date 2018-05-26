@@ -49,6 +49,11 @@ class DatabaseWrapper(_DatabaseWrapper):
 ```
 
 ### Usage
+
+```
+pip install django-conn-pool
+```
+
 settings.py
 
 ```
