@@ -70,7 +70,7 @@ SQLALCHEMY_QUEUEPOOL = {
 DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.mysql',
-        'ENGINE': 'django_pool',  # can import_module() in your Python path
+        'ENGINE': 'django_conn_pool.mysql',
         'HOST': '127.0.0.1',
         'NAME': 'xxx',
         'USER': 'xxx',
