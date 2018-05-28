@@ -30,7 +30,7 @@ from MySQLdb.converters import conversions                      # isort:skip
 # Some of these import MySQLdb, so import them after checking if it's installed.
 from django.db.backends.mysql.client import DatabaseClient                          # isort:skip
 from django.db.backends.mysql.creation import DatabaseCreation                      # isort:skip
-from django.db.backends.mysql.features import DatabaseFeatures                      # isort:skip
+from .features import DatabaseFeatures                                              # isort:skip
 from django.db.backends.mysql.introspection import DatabaseIntrospection            # isort:skip
 from django.db.backends.mysql.operations import DatabaseOperations                  # isort:skip
 from django.db.backends.mysql.schema import DatabaseSchemaEditor                    # isort:skip

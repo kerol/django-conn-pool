@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="django-conn-pool",
-    version="1.2.1",
+    version="1.11.0",
     author="kerol",
     author_email="ikerol@163.com",
     description="Connection Pooling with Django and SQLAlchemy",
@@ -19,6 +19,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ),
     install_requires=[
+        'Django<2.0.0',
         'SQLAlchemy>=1.2.7',
     ]
 )
