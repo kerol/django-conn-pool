@@ -1,5 +1,5 @@
 ### Django-conn-pool
-MySQL Connection Pooling with Django(>=2.0.5) and SQLAlchemy(>=1.2.7).
+MySQL Connection Pooling with Django(>2.0.0) and SQLAlchemy(>=1.2.7).
 
 ### Why
 If `CONN_MAX_AGE` not set in you settings, Django will establish a new MySQL connection for each request and close it after the request.
