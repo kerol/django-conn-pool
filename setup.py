@@ -19,7 +19,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ),
     install_requires=[
-        'Django>=2.0.5',
         'SQLAlchemy>=1.2.7',
     ]
 )
