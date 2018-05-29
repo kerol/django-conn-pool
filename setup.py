@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="django-conn-pool",
-    version="2.0.0",
+    version="2.0.1",
     author="kerol",
     author_email="ikerol@163.com",
     description="Connection Pooling with Django and SQLAlchemy",

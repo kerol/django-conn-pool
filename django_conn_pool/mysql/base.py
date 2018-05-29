@@ -61,7 +61,15 @@ class DatabaseWrapper(_DatabaseWrapper):
 
     def get_new_connection(self, conn_params):
         # return a mysql connection
-        conn_params = settings.DATABASES['default']
+        databases = settings.DATABASES
+        alias = None
+        for _alias in databases:
+            if databases[_alias]['NAME'] == conn_params['db']:
+                alias = _alias
+                break
+        client_flag = conn_params['client_flag']
+
+        conn_params = databases[alias]
         return Database.connect(
             host=conn_params['HOST'],
             port=conn_params['PORT'],
@@ -70,5 +78,8 @@ class DatabaseWrapper(_DatabaseWrapper):
             passwd=conn_params['PASSWORD'],
             use_unicode=True,
             charset='utf8',
+            client_flag=client_flag,
+            sql_mode='STRICT_TRANS_TABLES',
         )
+
 
