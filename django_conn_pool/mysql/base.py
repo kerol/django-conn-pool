@@ -77,7 +77,7 @@ class DatabaseWrapper(_DatabaseWrapper):
             db=conn_params['NAME'],
             passwd=conn_params['PASSWORD'],
             use_unicode=True,
-            charset='utf8',
+            charset='utf8mb4',
             client_flag=client_flag,
             sql_mode='STRICT_TRANS_TABLES',
         )
