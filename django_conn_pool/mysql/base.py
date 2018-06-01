@@ -64,7 +64,7 @@ class DatabaseWrapper(_DatabaseWrapper):
         databases = settings.DATABASES
         alias = None
         for _alias in databases:
-            if databases[_alias]['NAME'] == conn_params['db']:
+            if databases[_alias]['NAME'] == conn_params.get('db', databases['default']['NAME']):
                 alias = _alias
                 break
         client_flag = conn_params['client_flag']
