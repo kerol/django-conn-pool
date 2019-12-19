@@ -61,25 +61,25 @@ class DatabaseWrapper(_DatabaseWrapper):
 
     def get_new_connection(self, conn_params):
         # return a mysql connection
-        databases = settings.DATABASES
-        alias = None
-        for _alias in databases:
-            if databases[_alias]['NAME'] == conn_params.get('db', databases['default']['NAME']):
-                alias = _alias
-                break
-        client_flag = conn_params['client_flag']
-
-        conn_params = databases[alias]
+        alias = self._get_alias_by_params(conn_params)
+        new_params = settings.DATABASES[alias]
+        options = new_params.get('OPTIONS') or {}
         return Database.connect(
-            host=conn_params['HOST'],
-            port=conn_params['PORT'],
-            user=conn_params['USER'],
-            db=conn_params['NAME'],
-            passwd=conn_params['PASSWORD'],
+            host=new_params['HOST'],
+            port=int(new_params['PORT']),
+            user=new_params['USER'],
+            db=new_params['NAME'],
+            passwd=new_params['PASSWORD'],
             use_unicode=True,
-            charset='utf8mb4',
-            client_flag=client_flag,
-            sql_mode='STRICT_TRANS_TABLES',
+            charset=options.get('charset') or 'utf8mb4',
+            client_flag=conn_params['client_flag'],
+            sql_mode=options.get('sql_mode') or 'STRICT_TRANS_TABLES',
         )
 
-
+    def _get_alias_by_params(self, conn_params):
+        target_str = ''.join([str(conn_params[_]) for _ in ['host', 'port', 'db', 'user', 'passwd']])
+        for k, v in settings.DATABASES.items():
+            _str = ''.join([str(v[_]) for _ in ['HOST', 'PORT', 'NAME', 'USER', 'PASSWORD']])
+            if _str == target_str:
+                return k
+        return 'default'
