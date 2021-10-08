@@ -7,16 +7,12 @@ import re
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.db import utils
 from django.db.backends import utils as backend_utils
-from django.db.backends.base.base import BaseDatabaseWrapper
-from django.utils.functional import cached_property
 
 try:
     import MySQLdb as Database
     import sqlalchemy.pool as pool
     from sqlalchemy.pool import QueuePool
-    from sqlalchemy.exc import TimeoutError
     Database = pool.manage(Database, poolclass=QueuePool, **settings.SQLALCHEMY_QUEUEPOOL)
 except ImportError as err:
     raise ImproperlyConfigured(
@@ -24,17 +20,8 @@ except ImportError as err:
         'Did you install mysqlclient and SQLAlchemy?'
     ) from err
 
-from MySQLdb.constants import CLIENT, FIELD_TYPE                # isort:skip
+from MySQLdb.constants import FIELD_TYPE                # isort:skip
 from MySQLdb.converters import conversions                      # isort:skip
-
-# Some of these import MySQLdb, so import them after checking if it's installed.
-from django.db.backends.mysql.client import DatabaseClient                          # isort:skip
-from django.db.backends.mysql.creation import DatabaseCreation                      # isort:skip
-from django.db.backends.mysql.features import DatabaseFeatures                      # isort:skip
-from django.db.backends.mysql.introspection import DatabaseIntrospection            # isort:skip
-from django.db.backends.mysql.operations import DatabaseOperations                  # isort:skip
-from django.db.backends.mysql.schema import DatabaseSchemaEditor                    # isort:skip
-from django.db.backends.mysql.validation import DatabaseValidation                  # isort:skip
 
 version = Database.version_info
 if version < (1, 3, 3):
@@ -54,7 +41,6 @@ django_conversions.update({
 server_version_re = re.compile(r'(\d{1,2})\.(\d{1,2})\.(\d{1,2})')
 
 
-from django.db.backends.mysql.base import CursorWrapper
 from django.db.backends.mysql.base import DatabaseWrapper as _DatabaseWrapper
 
 class DatabaseWrapper(_DatabaseWrapper):
@@ -77,7 +63,7 @@ class DatabaseWrapper(_DatabaseWrapper):
         )
 
     def _get_alias_by_params(self, conn_params):
-        target_str = ''.join([str(conn_params[_]) for _ in ['host', 'port', 'db', 'user', 'passwd']])
+        target_str = ''.join([str(conn_params[_]) for _ in ['host', 'port', 'database', 'user', 'password']])
         for k, v in settings.DATABASES.items():
             _str = ''.join([str(v[_]) for _ in ['HOST', 'PORT', 'NAME', 'USER', 'PASSWORD']])
             if _str == target_str:
